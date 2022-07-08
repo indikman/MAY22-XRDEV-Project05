@@ -22,11 +22,15 @@ public class ARTapToPlace : MonoBehaviour
     {
         if(Input.touchCount > 0) // If the screen has been tapped!
         {
-            if(arRaycastManager.Raycast(Input.GetTouch(0).position, hits, TrackableType.PlaneWithinPolygon)) // Check if it touches a plane and populates a list of hitpoints
+            if(GameManager.instance.activePlayer == null)
             {
-                Pose hitPose = hits[0].pose;
-                Instantiate(spawnPrefab, hitPose.position, Quaternion.identity); // Instantiate a robot
+                if (arRaycastManager.Raycast(Input.GetTouch(0).position, hits, TrackableType.PlaneWithinPolygon)) // Check if it touches a plane and populates a list of hitpoints
+                {
+                    Pose hitPose = hits[0].pose;
+                    Instantiate(spawnPrefab, hitPose.position, Quaternion.identity); // Instantiate a robot
+                }
             }
+
         }
     }
 }
